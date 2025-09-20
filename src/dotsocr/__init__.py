@@ -6,7 +6,9 @@ from transformers.models.qwen2_5_vl.processing_qwen2_5_vl import (
     Qwen2_5_VLProcessor as VLProcessor,
 )
 
-from .layout_models import Result
+from .layout_models import Result, Category, BBox, Element
+
+__all__ = ["DotsOCR", "Result", "Category", "BBox", "Element"]
 
 
 PROMPT = """Please output the layout information from the PDF image, including each layout element's bbox, its category, and the corresponding text content within the bbox.
@@ -87,9 +89,3 @@ class DotsOCR:
             clean_up_tokenization_spaces=False,
         )
         return [Result.model_validate_json(i) for i in output_text]
-
-
-if __name__ == "__main__":
-    model = DotsOCR(r"C:\Users\xjq70\Desktop\dots.ocr\weights\DotsOCR")
-    result = model.inference([r"C:\Users\xjq70\Desktop\llmbook60.png"])
-    print(result)
