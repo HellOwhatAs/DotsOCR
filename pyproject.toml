@@ -1,0 +1,35 @@
+[project]
+name = "dotsocr"
+version = "0.1.0"
+description = "Installable package for DotsOCR, powered by uv."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "accelerate>=1.10.1",
+    "flash-attn>=2.8.3",
+    "pydantic>=2.11.9",
+    "qwen-vl-utils>=0.0.11",
+    "torch==2.7.0",
+    "torchvision==0.22.0",
+    "transformers==4.51.3",
+    "triton<3.4 ; sys_platform != 'win32'",
+    "triton-windows<3.4 ; sys_platform == 'win32'",
+]
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu128" }]
+torchvision = [{ index = "pytorch-cu128" }]
+flash-attn = [
+    { url = "https://github.com/kingbri1/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3+cu128torch2.7.0cxx11abiFALSE-cp312-cp312-win_amd64.whl", marker = "sys_platform == 'win32'" },
+    { url = "https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3+cu12torch2.7cxx11abiFALSE-cp312-cp312-linux_x86_64.whl", marker = "sys_platform == 'linux'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+
+[build-system]
+requires = ["uv_build>=0.8.15,<0.9.0"]
+build-backend = "uv_build"
