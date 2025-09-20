@@ -19,13 +19,15 @@ uv add git+https://github.com/HellOwhatAs/DotsOCR
 First, download model weights from https://huggingface.co/rednote-hilab/dots.ocr.
 ```py
 from dotsocr import DotsOCR
+from PIL import Image
 
-# load downloaded weights
+# load weights downloaded from huggingface
 model = DotsOCR("path/to/DotsOCR")
 # batched inference
 result = model.inference([
     "image1.png",
     "image2.png",
+    Image.open("image3.png"),
     # ...
 ])
 print(result)

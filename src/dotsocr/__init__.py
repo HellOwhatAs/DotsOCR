@@ -1,3 +1,4 @@
+from PIL import Image
 import torch
 from transformers import AutoModelForCausalLM, AutoProcessor
 from qwen_vl_utils import process_vision_info
@@ -47,18 +48,18 @@ class DotsOCR:
         )
         setattr(getattr(self.processor, "tokenizer"), "padding_side", "left")
 
-    def inference(self, image_paths: list[str]) -> list[Result]:
+    def inference(self, images: list[str | Image.Image]) -> list[Result]:
         messages = [
             [
                 {
                     "role": "user",
                     "content": [
-                        {"type": "image", "image": image_path},
+                        {"type": "image", "image": image},
                         {"type": "text", "text": PROMPT},
                     ],
                 }
             ]
-            for image_path in image_paths
+            for image in images
         ]
 
         texts = [
