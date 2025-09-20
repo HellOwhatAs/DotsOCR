@@ -12,7 +12,7 @@ Installable package for [DotsOCR](https://github.com/rednote-hilab/dots.ocr), po
 
 ## Install
 ```
-uv add ...
+uv add git+https://github.com/HellOwhatAs/DotsOCR
 ```
 
 ## QuickStart
